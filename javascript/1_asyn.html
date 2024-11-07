@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기</title>
+</head>
+<body>
+    <h1>비동기(async)=> 함수가 promise리턴 
+        / 대기(await) => 실행을 일시 중지하고 promise가 끝날때 까지 기다림</h1>
+    <p id="d"></p>
+<script>
+async function myView(){
+    let newPromise = new Promise(function(resolve){
+        setTimeout(function(){resolve("5분 대기 가랏 5대기!!조");}, 1000);
+    });
+    document.getElementById("d").innerHTML = await newPromise;
+}
+myView();
+</script>
+
+    <h1> 핫.츄.핑! 비동기</h1>
+    <pre>
+    - 비동기: 다른 함수와 병렬로 실행되는 함수
+    - setTimeout()
+    </pre>
+    <p id="demo"></p>
+    <p id="after"></p>
+    <h1 id="time"></h1>
+    <script>
+        myDisplayer = (something) => {  // 2번째로 실행  , 이게 비동기함수의 특징이다 순서대로 실행되는 것
+        document.getElementById('demo').innerHTML = something;
+        }
+        myCalculator = (num1, num2, myCallback) => { // 1번째로 실행
+            let sum = num1 + num2;
+            myCallback(sum);
+        }
+
+        myCalculator(5, 5, myDisplayer);
+
+        //setTimeout
+        myFunction = () => {
+            document.getElementById("after").innerHTML = "3초후에 나타남";
+        }
+        //한번만 나오는 기능 
+        setTimeout(myFunction, 3000); //3초를 의미 참고! 영상에서 300 , 웹에서는 3000이 3초이다.
+
+        //지정한 몇 초 마다 나타나기 setInterval
+        WhatTime = () => {
+            let d = new Date();
+            document.getElementById("time").innerHTML = 
+            d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        }
+
+        setInterval(WhatTime, 1000); //1초마다 나온다
+    </script>
+
+    <pre>
+    비동기 프로그램을 사용하면 javascript에서 오래 실행되는 작업을 시작하고
+    다른 작업을 병렬로 계속 실행할 수 있다.
+    단점 : 작성하기 어렵고 디버깅하는 것이 힘들다. 
+    그래서 최신 비동기는 콜백을 사용하지 않는다.
+    대신 Promise를 사용하여 해결한다
+    </pre>
+
+    <h1>promise</h1>
+    <pre>
+    - 코드생성: 시간이 걸릴수 있는 코드
+    - 소비코드: 결과를 기다려야 하는 코드
+    - promise는 producing코드와 consuming코드를 연결하는 객체이다
+    - promise 3가지 객체 속성
+    1) Pending (시간이 흐르면 = 보류중[한정되지 않은])
+    2) Fulfilled (결과값)
+    3) Rejected (거부되는것[오류객체])
+
+    .then() : 결과값에 대한 콜백과 실패에 대한 콜백이라는 2개의 인수를 받는다
+    </pre>
+
+    <p id="callback"></p>
+    <script>
+        View = (some) => {
+            document.getElementById("callback").innerHTML = some;
+        }
+        let myPromise = new Promise(function(myResolve, myReject){
+            let x = 1;
+
+            if (x == 0){
+                myResolve("OK");
+
+            } else {
+                myReject("쏭송씨 오류가 나왔습니다. 500에러 그잡체")
+            }
+        })
+
+        myPromise.then( //성공에 대한 콜백과 실패에 대한 콜백이라는 2개의 인수를 받는다.
+            function(value) {View(value)},
+            function(error) {View(error)}
+        )
+    </script>
+</body>
+</html>

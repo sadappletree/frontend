@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 밑에 src주소는 쌤이 주신 js파일이다 멋있는거이다-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+    
+</head>
+<body>
+    <script>
+        $(function(){ //도큐먼트가 실행되기 전에 실행되는 것을 방지하는 기능이다!!
+            $("button").click(function(){
+                $('#div1').load("demo_test.txt");
+            });
+        })
+    </script>
+    <div class="" id="div1">
+        <h2>이모!! 여기 술 주세요~</h2>
+    </div>
+    <button>Get 핫/츄.핑's</button>
+    
+</body>
+</html>
+<!-- cors 오류 : 출처가 허용되지 않은 공유오류-->
